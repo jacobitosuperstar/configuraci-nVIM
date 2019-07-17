@@ -1,3 +1,5 @@
+#MacOs
+
 #############################################
 #Paths hechos para la ejecucion de programas#
 #############################################
@@ -15,11 +17,33 @@ export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 #             un buen perfil                #
 #############################################
 
-#PS1='\[$(tput setaf 27)\]\u$'; #user
-#PS1+='\[$(tput setaf 195)\]@\h '; #host
-#PS1+='\[$(tput setaf 142)\]\W -> '; #current directory
-#PS1+='\[$(tput sgr0)\]'; #end of line so colors don't bleed out
-#export PS1; #\[ begining  \] end, so the cursor doesn't get lost
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagaced
+alias ls='ls -GFh'
+#activando el powerline
+#POWERLEVEL9K_MODE='awesome-fontconfig'
+source  ~/powerlevel9k/powerlevel9k.zsh-theme
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vcs dir rbenv)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(root_indicator background_jobs status load)
+
+#Linux
+
+#############################################
+#Paths hechos para la ejecucion de programas#
+#############################################
+
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+export MANPATH="/home/linuxbrew/.linuxbrew//share/man:$MANPATH"
+export INFOPATH="/home/linuxbrew/.linuxbrew//share/info:$INFOPATH"
+eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+alias python="/home/linuxbrew/.linuxbrew/bin/python3/3.7.3"
+
+
+#############################################
+# Personalizando el terminal para que tenga #
+#             un buen perfil                #
+#############################################
+
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 alias ls='ls -GFh'
@@ -29,3 +53,8 @@ alias ls='ls -GFh'
 source  ~/powerlevel9k/powerlevel9k.zsh-theme
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vcs dir rbenv)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(root_indicator background_jobs status load)
+
+
+
+
+
