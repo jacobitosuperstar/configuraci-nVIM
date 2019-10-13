@@ -4,6 +4,8 @@
 #Paths hechos para la ejecucion de programas#
 #############################################
 
+export EDITOR='vim'
+export TERM='xterm-256color'
 export LC_ALL=en_US.UTF-8
 export PATH="/usr/local/opt/icu4c/bin:$PATH"
 export PATH="/usr/local/opt/icu4c/sbin:$PATH"
@@ -20,8 +22,7 @@ export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
-activando el powerline
-POWERLEVEL9K_MODE='awesome-fontconfig'
+#activando el powerline
 source  ~/powerlevel9k/powerlevel9k.zsh-theme
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vcs dir rbenv ssh)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(root_indicator status virtualenv)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vcs dir rbenv virtualenv ssh)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(root_indicator status)
