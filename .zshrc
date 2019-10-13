@@ -20,8 +20,8 @@ export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
-#activando el powerline
-#POWERLEVEL9K_MODE='awesome-fontconfig'
+activando el powerline
+POWERLEVEL9K_MODE='awesome-fontconfig'
 source  ~/powerlevel9k/powerlevel9k.zsh-theme
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vcs dir rbenv ssh)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(root_indicator status virtualenv)
