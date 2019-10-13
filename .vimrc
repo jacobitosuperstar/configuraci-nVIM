@@ -1,132 +1,107 @@
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+"----------------CONFIGURACION UNIVERSAL EN VIM-------------------"
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+"Tildez set encoding=utf-8
+set fileencoding=utf-8
 
-" Paquete para manejo de funciones en python
-" Plugin 'tweekmonster/braceless.vim'
+"Haciendo que Vim no busque ser compatible con Vi
+set nocompatible             
+filetype plugin on
 
-" Colores
-Plugin 'kiddos/malokai.vim'
-
-" Buscador de archivos
-Plugin 'scrooloose/nerdtree'
-
-" Powerline
-Plugin 'Lokaltog/vim-powerline'
-" Símbolos PowerLine
-" let g:Powerline_symbols = 'fancy'
-
-"Auto complete
-Plugin 'Valloric/YouCompleteMe'
-
-set nocompatible   " Disable vi-compatibility
-set laststatus=2   " Always show the statusline
-
-" set encoding=utf-8 " Necessary to show Unicode glyphs
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-"
+"Corte de linea
+set wrap linebreak nolist 
 
 
-"Configuración universal VIM
 
-" tildez
-set encoding=utf-8 " The encoding displayed.
-set fileencoding=utf-8 " The encoding written to file.
+"---------cambios en las teclas de navegación-----------------------
 
-"hacer que la tecla de borrado funcione como en los otros programas
+"Hacer que la tecla de borrado funcione como en los otros programas
 set backspace=indent,eol,start
+
+" Press i to enter insert mode, and ii to exit.
+imap ii <Esc>
+
+"-------------------------------------------------------------------
+
+
+"--------------Cambios en la presentación de VIM--------------
 
 " enable syntax highlighting
 syntax enable
 syntax on
 
-"colors 
-colorscheme malokai
+"Show line numbers
+set number "Este saca el numero total
+set relativenumber "Este saca el numero relativo
 
-" show line numbers
-set number
-
-" set tabs to have 4 spaces
-set ts=4
-
-" indent when moving to the next line while writing code
-set autoindent
-
-" expand tabs into spaces
+"Set tab and autoindent
 set expandtab
-
-" when using the >> or << commands, shift lines by 4 spaces
 set shiftwidth=4
+set smarttab
+set autoindent
+set smartindent
 
-" show a visual line under the cursor's current line
-"set cursorline
+"-----------------------------------------------------
 
-" show the matching part of the pair for [] {} and ()
-"set noshowmatch
-"let g:loaded_matchparen = 1 
+"----------------Cierre automático de símbolos--------------------
 
-" enable all Python syntax highlighting features
-let python_highlight_all = 1
+"---paréntesis---------
+:inoremap ( ()<Esc>i
+"---llaves-----------
+:inoremap { {}<Esc>i
+"---corchetes--------
+:inoremap [ []<Esc>i
+"---citaciones-------
+:inoremap " ""<Esc>i
 
-" haciendo que los swapfiles se encuentren en un sálo lugar
+"---------------Búsqueda de Archivos------------------
+
+"También da completador de archivos cuando undo la tecla de tabulador
+set path+=**
+
+"Mostrar todos los archivos que corresponden con la búsqueda cuando undo tabulador (completar)
+set wildmenu
+
+"------------------------------------------------------------------
+
+"--------------búsqueda de archivos-------------------------------"
+" Tweaks for browsing
+let g:netrw_banner=0        " disable annoying banner
+let g:netrw_browse_split=4  " open in prior window
+let g:netrw_altv=1          " open splits to the right
+let g:netrw_liststyle=3     " tree view
+"let g:netrw_list_hide=netrw_gitignore#Hide()
+"let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+
+" NOW WE CAN:
+" - :edit <nombre del folder>
+" - <CR>/v/t to open in an h-split/v-split/tab
+" - check |netrw-browse-maps| for more mappings
+"abre los archivos en un panel lateral con v"
+"abre los archivos en una nueva pestaña con t
+"--------------------------SWAPFILES-------------------------
+
+"Haciendo que los swapfiles se encuentren en un sálo lugar
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
+"No swap files
+"set noswapfile
+"-----------------------------------------------------------
 
-" No swap files
-" set noswapfile
 
-set nocompatible              " be iMproved, required
-" filetype off                  " required
+"------Configuraciones Propias para Ciertos Archivos------------
 
-" Para que el NerdTree se abra automáticamente
-" autocmd vimenter * NERDTree
+"------Markdown----------
 
-"corte de linea
-set wrap linebreak nolist 
-"para que los diferentes formatos queden como markdown
+"Para que los diferentes formatos queden como markdown
 au BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,README.md  setf markdown
 
-"solo para python
-"autocmd Filetype python set number
-set number
-
-"solo para Markdown
+"Solo para Markdown
 autocmd Filetype markdown set syntax=markdown colorcolumn=0
 
-"Completador 
+"-------Python----------
 
-" Point YCM to the Pipenv created virtualenv, if possible
-" At first, get the output of 'pipenv --venv' command.
-let pipenv_venv_path = system('pipenv --venv')
-" The above system() call produces a non zero exit code whenever
-" a proper virtual environment has not been found.
-" So, second, we only point YCM to the virtual environment when
-" the call to 'pipenv --venv' was successful.
-" Remember, that 'pipenv --venv' only points to the root directory
-" of the virtual environment, so we have to append a full path to
-" the python executable.
-if shell_error == 0
-  let venv_path = substitute(pipenv_venv_path, '\n', '', '')
-  let g:ycm_python_binary_path = venv_path . '/bin/python'
-else
-  let g:ycm_python_binary_path = 'python'
-endif
+"Enable all Python syntax highlighting features
+let python_highlight_all = 1
+
+"-----------------------------------------------------
