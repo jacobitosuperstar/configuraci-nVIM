@@ -1,7 +1,8 @@
 "----------------CONFIGURACION UNIVERSAL EN VIM-------------------"
 
-"Tildez set encoding=utf-8
+"Tildez
 set fileencoding=utf-8
+set encoding=utf-8
 
 "Haciendo que Vim no busque ser compatible con Vi
 set nocompatible             
