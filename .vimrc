@@ -1,6 +1,8 @@
+
 "----------------CONFIGURACION UNIVERSAL EN VIM-------------------"
 
-"Tildez set encoding=utf-8
+"Tildez 
+set encoding=utf-8
 set fileencoding=utf-8
 
 "Haciendo que Vim no busque ser compatible con Vi
@@ -43,6 +45,9 @@ set bg=dark
 set ruler
 set nohlsearch
 color default
+
+"siempre mostrar la línea de status"
+set laststatus=2
 "-----------------------------------------------------
 
 "----------------Cierre automático de símbolos--------------------
@@ -122,13 +127,11 @@ set nocompatible              " be iMproved, required
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+
 Plugin 'VundleVim/Vundle.vim'
 
 "Auto complete
 Plugin 'Valloric/YouCompleteMe'
-
-"Powerline para mostrar que "
-Plugin 'vim-powerline'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -147,9 +150,3 @@ if shell_error == 0
 else
   let g:ycm_python_binary_path = 'python'
 endif
-
-".........VIM..POWERLINE............"
-
-"siempre mostrar la línea de status"
-set laststatus=2
-let g:Powerline_symbols = 'fancy'
