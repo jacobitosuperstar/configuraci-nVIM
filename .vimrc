@@ -1,4 +1,3 @@
-
 "----------------CONFIGURACION UNIVERSAL EN VIM-------------------"
 
 "Tildez 
@@ -60,6 +59,8 @@ set laststatus=2
 :inoremap [ []<Esc>i
 "---citaciones-------
 :inoremap " ""<Esc>i
+"---cositos para html5-------
+:inoremap < <><Esc>i
 
 "---------------Búsqueda de Archivos------------------
 
@@ -81,7 +82,7 @@ let g:netrw_browse_split=4  " open files in the previous window
 "=1 horizontal split the window
 "=2 Vertical split the window
 "=3 Open in a new tab
-"=4 Open in a previouw window
+"=4 Open in a previous window
 
 let g:netrw_winsize=25      " set the width of the director explorer
 let g:netrw_altv=1          " open splits to the right
@@ -167,7 +168,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 "Auto complete
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -176,13 +177,13 @@ filetype plugin indent on    " required
 
 " Point YCM to the Pipenv created virtualenv, if possible
 " At first, get the output of 'pipenv --venv' command.
-let pipenv_venv_path = system('pipenv --venv')
+"let pipenv_venv_path = system('pipenv --venv')
 " The above system() call produces a non zero exit code whenever a proper virtual environment has not been found. So, second, we only point YCM to the virtual environment when the call to 'pipenv --venv' was successful.
 "
 " Remember, that 'pipenv --venv' only points to the root directory of the virtual environment, so we have to append a full path to the python executable.
-if shell_error == 0
-  let venv_path = substitute(pipenv_venv_path, '\n', '', '')
-  let g:ycm_python_binary_path = venv_path . '/bin/python'
-else
-  let g:ycm_python_binary_path = 'python'
-endif
+"if shell_error == 0
+"  let venv_path = substitute(pipenv_venv_path, '\n', '', '')
+"  let g:ycm_python_binary_path = venv_path . '/bin/python'
+"else
+"  let g:ycm_python_binary_path = 'python'
+"endif
