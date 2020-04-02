@@ -11,8 +11,6 @@ filetype plugin on
 "Corte de linea
 set wrap linebreak nolist 
 
-
-
 "---------cambios en las teclas de navegación-----------------------
 
 "Hacer que la tecla de borrado funcione como en los otros programas
@@ -22,7 +20,6 @@ set backspace=indent,eol,start
 imap ii <Esc>
 
 "-------------------------------------------------------------------
-
 
 "--------------Cambios en la presentación de VIM--------------
 
@@ -43,7 +40,7 @@ set smartindent
 set bg=dark
 set ruler
 set nohlsearch
-color default
+color pablo
 
 "siempre mostrar la línea de status"
 set laststatus=2
