@@ -2,13 +2,9 @@
 #Paths hechos para la ejecucion de programas#
 #############################################
 
-export PATH="/usr/local/opt/icu4c/bin:$PATH"
-export PATH="/usr/local/opt/icu4c/sbin:$PATH"
-export PATH="/usr/local/opt/ruby/bin:$PATH"
-export PATH="/usr/local/opt/sqlite/bin:$PATH"
-eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
-export PATH=/usr/local/bin:/usr/local/sbin:~/bin:$PATH
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+export PYTHONPATH=/Users/jacobobedoya_gmail_com/Library/Python/3.7/bin:$PATH
+export PATH=/home/jacobobedoya_gmail_com/.local/bin:$PATH
+alias python=python3
 
 #############################################
 # Personalizando el terminal para que tenga #
