@@ -21,6 +21,7 @@ imap ii <Esc>
 
 "-------------------------------------------------------------------
 
+
 "--------------Cambios en la presentación de VIM--------------
 
 " enable syntax highlighting
@@ -87,12 +88,6 @@ let g:netrw_liststyle=3     " tree view
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
-"Para que netrw se abra automáticamente con vim"
-"augroup ProjectDrawer
-"  autocmd!
-"  autocmd VimEnter * :Vexplore
-"augroup END
-
 " Toggle Vexplore with Ctrl-E
 function! ToggleVExplorer()
   if exists("t:expl_buf_num")
@@ -130,7 +125,6 @@ set undodir=~/.vim/undo//
 "set noswapfile
 "-----------------------------------------------------------
 
-
 "------Configuraciones Propias para Ciertos Archivos------------
 
 "------Markdown----------
@@ -145,42 +139,4 @@ autocmd Filetype markdown set syntax=markdown colorcolumn=0
 
 "Enable all Python syntax highlighting features
 let python_highlight_all = 1
-
-"-----------------------------------------------------
-
-"Configuración de los Plugins con Vundle"
-
-"Comandos simples:
-":PluginList
-":PluginInstall
-":PluginUpdate
-":PluginClean!
-
-set nocompatible              " be iMproved, required
-""filetype off                  " required
-
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'VundleVim/Vundle.vim'
-
-"Auto complete
-"Plugin 'Valloric/YouCompleteMe'
-
-call vundle#end()            " required
-filetype plugin indent on    " required
-
-".......Autocompletador Virtual Enviroment.............."
-
-" Point YCM to the Pipenv created virtualenv, if possible
-" At first, get the output of 'pipenv --venv' command.
-"let pipenv_venv_path = system('pipenv --venv')
-" The above system() call produces a non zero exit code whenever a proper virtual environment has not been found. So, second, we only point YCM to the virtual environment when the call to 'pipenv --venv' was successful.
-"
-" Remember, that 'pipenv --venv' only points to the root directory of the virtual environment, so we have to append a full path to the python executable.
-"if shell_error == 0
-"  let venv_path = substitute(pipenv_venv_path, '\n', '', '')
-"  let g:ycm_python_binary_path = venv_path . '/bin/python'
-"else
-"  let g:ycm_python_binary_path = 'python'
-"endif
+"-------Functions----------
