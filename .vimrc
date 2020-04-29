@@ -17,7 +17,7 @@ set wrap linebreak nolist
 set backspace=indent,eol,start
 
 " Press i to enter insert mode, and ii to exit.
-imap ii <Esc>
+" imap ii <Esc>
 
 "-------------------------------------------------------------------
 
@@ -30,7 +30,7 @@ syntax on
 
 "Show line numbers
 set number "Este saca el numero total
-set relativenumber "Este saca el numero relativo
+"set relativenumber "Este saca el numero relativo
 
 "Set tab and autoindent
 set expandtab
@@ -40,11 +40,12 @@ set autoindent
 set smartindent
 set bg=dark
 set ruler
-set nohlsearch
-color pablo
+set hlsearch
+color peachpuff
+highlight Comment ctermfg=grey
 
 "siempre mostrar la línea de status"
-set laststatus=2
+"set laststatus=2
 "-----------------------------------------------------
 
 "----------------Cierre automático de símbolos--------------------
@@ -139,4 +140,8 @@ autocmd Filetype markdown set syntax=markdown colorcolumn=0
 
 "Enable all Python syntax highlighting features
 let python_highlight_all = 1
+
+"-------Spell Checking-----------
+"set spell spelllang=en_us,es 
+
 "-------Functions----------
