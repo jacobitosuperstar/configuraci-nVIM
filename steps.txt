@@ -1,0 +1,60 @@
+sudo apt-get update
+sudo apt-get install -y python3-pip
+sudo python3 -m pip install --upgrade pip
+"make pip install requirements"
+mkdir /var/www
+cd /var/www
+"clone my project here"
+apt-get install -y apache2 libapache2-mod-wsgi-py3
+vim /etc/apache2/sites-available/mysite.conf
+
+<VirtualHost *:80>
+    ServerName YOURHOSTNAME
+
+    ErrorLog ${APACHE_LOG_DIR}/mysite-error.log
+    CustomLog ${APACHE_LOG_DIR}/mysite-access.log combined
+
+    WSGIDaemonProcess mysite processes=2 threads=25 python-path=/var/www/mysite
+    WSGIProcessGroup mysite
+    WSGIScriptAlias / /var/www/mysite/mysite/wsgi.py
+
+    Alias /favicon.ico /var/www/mysite/static/favicon.ico
+    Alias /static/ /var/www/mysite/static/
+    Alias /static/ /var/www/mysite/media/
+
+    <Directory /var/www/mysite/mysite>
+        <Files wsgi.py>
+            Require all granted
+        </Files>
+    </Directory>
+
+    <Directory /var/www/mysite/static>
+        Require all granted
+    </Directory>
+
+    <Directory /var/www/mysite/media>
+        Require all granted
+    </Directory>
+</VirtualHost>
+
+
+rm /etc/apache2/sites-available/000-default.conf
+vim /etc/apache2/sites-available/000-default.conf
+
+<VirtualHost *:80>
+    ServerName _
+    Redirect 404 /
+</VirtualHost>
+
+a2ensite mysite
+systemctl reload apache2
+
+python3 manage.py collectstatic
+service apache2 reload
+
+cd /var/www/
+sudo chown www-data mysite/
+sudo chown www-data mysite/db.sqlite3
+sudo chown www-data mysite/media
+
+service apache2 reload
