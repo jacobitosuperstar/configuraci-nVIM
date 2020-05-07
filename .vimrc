@@ -16,9 +16,6 @@ set wrap linebreak nolist
 "Hacer que la tecla de borrado funcione como en los otros programas
 set backspace=indent,eol,start
 
-" Press i to enter insert mode, and ii to exit.
-" imap ii <Esc>
-
 "-------------------------------------------------------------------
 
 
