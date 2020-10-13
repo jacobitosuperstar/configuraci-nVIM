@@ -36,10 +36,6 @@ set incsearch
 "marcar las búsquedas"
 set hlsearch
 
-"Temas"
-"color peachpuff
-"highlight Comment ctermfg=yellow
-
 "---------------Búsqueda de Archivos------------------
 
 "También da completador de archivos cuando undo la tecla de tabulador
@@ -99,11 +95,11 @@ map <silent> <C-E> :call ToggleVExplorer()<CR>
 "--------------------------SWAPFILE-------------------------
 
 "Haciendo que los historiales de comandos se encuentren en un sólo lugar
-set backupdir=~/.vim/backup//
-set directory=~/.vim/swap//
-set undodir=~/.vim/undo//
+"set backupdir=~/.vim/backup//
+"set directory=~/.vim/swap//
+"set undodir=~/.vim/undo//
 "No swap files
-"set noswapfile
+set noswapfile
 "-----------------------------------------------------------
 
 "------Configuraciones Propias para Ciertos Archivos------------
@@ -152,6 +148,8 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'morhetz/gruvbox'
+Plugin 'dense-analysis/ale'
+Plugin 'sheerun/vim-polyglot'
 
 call vundle#end()
 filetype plugin indent on
@@ -181,4 +179,47 @@ autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 autocmd CompleteDone * pclose
 
+"Temas"
+"color peachpuff
+"highlight Comment ctermfg=yellow
 colorscheme gruvbox
+
+"Lynter de python para ver que problemas hay en el código"
+let g:ale_linters = {
+      \   'python': ['flake8', 'pylint'],
+      \}
+
+"let g:ale_linters = {
+"      \   'python': ['flake8', 'pylint'],
+"      \   'ruby': ['standardrb', 'rubocop'],
+"      \   'javascript': ['eslint'],
+"      \}
+
+"YAPF de Google para arreglar el cógido"
+let g:ale_fixers = {
+      \    'python': ['yapf'],
+      \}
+
+"Se arregla el código y se guarda"
+nmap <F10> :ALEFix<CR>
+let g:ale_fix_on_save = 1
+
+"Dice el estatus del código al finalizar el programa"
+function! LinterStatus() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+
+  return l:counts.total == 0 ? '✨ all good ✨' : printf(
+        \   '😞 %dW %dE',
+        \   all_non_errors,
+        \   all_errors
+        \)
+endfunction
+
+set statusline=
+set statusline+=%m
+set statusline+=\ %f
+set statusline+=%=
+set statusline+=\ %{LinterStatus()}
