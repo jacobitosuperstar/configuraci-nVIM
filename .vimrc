@@ -1,5 +1,4 @@
 "----------------CONFIGURACION UNIVERSAL EN VIM-------------------"
-
 "Tildez 
 set encoding=utf-8
 set fileencoding=utf-8
@@ -9,15 +8,18 @@ set nocompatible
 filetype off
 
 "Corte de linea
+"La línea se corta y no continua en el documento
 set wrap linebreak nolist 
+"la línea no se corta en el documento
+"set nowrap
 
 " enable syntax highlighting
 syntax enable
 syntax on
 
 "Show line numbers
-set number "Este saca el numero total
-"set relativenumber "Este saca el numero relativo
+"set number "Este saca el numero total
+set relativenumber "Este saca el numero relativo
 
 "Set tab and autoindent
 set expandtab
@@ -28,7 +30,7 @@ set autoindent
 set smartindent
 
 "background siempre oscuro, sin importar el tema"
-set bg=dark
+"set bg=dark
 
 "Búsqueda inteligente"
 set incsearch
@@ -92,6 +94,19 @@ map <silent> <C-E> :call ToggleVExplorer()<CR>
 "abre los archivos en un panel lateral con v"
 "abre los archivos en una nueva pestaña con t
 
+"-----------------------COMMENTING------------------------"
+
+" Method 1
+"vnoremap <silent> # :s/^/#<space>/<cr>:noh<cr>
+"vnoremap <silent> -# :s/^#<space>//<cr>:noh<cr>
+
+" Method 2
+"how to commet in VIM"
+"Step 1: Go to the the first column of the first line you want to comment."
+"Step 2: Press: Ctrl+v and select the lines you want to comment:"
+"Step 3: Shift-I#space (Enter Insert-at-left mode, type chars to insert. The selection will disappear, but all lines within it will be modified after Step 4.)"
+"Step 4: Esc"
+
 "--------------------------SWAPFILE-------------------------
 
 "Haciendo que los historiales de comandos se encuentren en un sólo lugar
@@ -116,6 +131,7 @@ autocmd Filetype markdown set syntax=markdown colorcolumn=0
 
 "Enable all Python syntax highlighting features
 let python_highlight_all = 1
+let g:python_highlight_all = 1
 
 "-------Spell Checking-----------
 "set spell spelllang=es,en
@@ -124,18 +140,18 @@ let python_highlight_all = 1
 
 "----------------Teclas Modificadas--------------------
 "----backspace----
-set backspace=indent,eol,start
+"set backspace=indent,eol,start
 "--Cierre automático de símbolos--
 "---paréntesis---
-:inoremap ( ()<Esc>i
+":inoremap ( ()<Esc>i
 "---llaves---
-:inoremap { {}<Esc>i
+":inoremap { {}<Esc>i
 "---corchetes---
-:inoremap [ []<Esc>i
+":inoremap [ []<Esc>i
 "---citaciones---
-:inoremap " ""<Esc>i
+":INoremap " ""<Esc>i
 "---citaciones---
-:inoremap ' ''<Esc>i
+":inoremap ' ''<Esc>i
 
 "----------------VundleVim------------------------------"
 set nocompatible
@@ -144,12 +160,19 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+"El manejador de parquetes"
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'leafgarland/typescript-vim'
-Plugin 'Valloric/YouCompleteMe'
+"El mejor tema de colores de la historia"
 Plugin 'morhetz/gruvbox'
+"Typescrip syntaxis"
+Plugin 'leafgarland/typescript-vim'
+"autocompletador de VIM"
+Plugin 'Valloric/YouCompleteMe'
+"Plugin 'nanotech/jellybeans'
+"analizadores de código"
 Plugin 'dense-analysis/ale'
-Plugin 'sheerun/vim-polyglot'
+"powerline like bar"
+Plugin 'itchyny/lightline.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -181,12 +204,18 @@ autocmd CompleteDone * pclose
 
 "Temas"
 "color peachpuff
+"color pablo
 "highlight Comment ctermfg=yellow
+set bg=dark
 colorscheme gruvbox
+"let g:gruvbox_contrast_dark = 'hard'
+"let g:gruvbox_contrast_light ='hard'
+
+let g:gruvbox_invert_selection='1'
 
 "Lynter de python para ver que problemas hay en el código"
 let g:ale_linters = {
-      \   'python': ['flake8', 'pylint'],
+      \   'python': ['flake8', 'pylint-django'],
       \}
 
 "let g:ale_linters = {
@@ -223,3 +252,10 @@ set statusline+=%m
 set statusline+=\ %f
 set statusline+=%=
 set statusline+=\ %{LinterStatus()}
+
+"PowerLine configuration
+set laststatus=2
+set noshowmode
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ }
