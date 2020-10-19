@@ -1,3 +1,4 @@
+
 "----------------CONFIGURACION UNIVERSAL EN VIM-------------------"
 
 "Tildez 
@@ -144,10 +145,15 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+"El manejador de parquetes"
 Plugin 'VundleVim/Vundle.vim'
+"Typescrip syntaxis"
 Plugin 'leafgarland/typescript-vim'
+"autocompletador de VIM"
 Plugin 'Valloric/YouCompleteMe'
+"El mejor tema de colores de la historia"
 Plugin 'morhetz/gruvbox'
+"analizadores de código"
 Plugin 'dense-analysis/ale'
 Plugin 'sheerun/vim-polyglot'
 
@@ -223,3 +229,9 @@ set statusline+=%m
 set statusline+=\ %f
 set statusline+=%=
 set statusline+=\ %{LinterStatus()}
+
+"how to commet in VIM"
+"Step 1: Go to the the first column of the first line you want to comment."
+"Step 2: Press: Ctrl+v and select the lines you want to comment:"
+"Step 3: Shift-I#space (Enter Insert-at-left mode, type chars to insert. The selection will disappear, but all lines within it will be modified after Step 4.)"
+"Step 4: Esc"
