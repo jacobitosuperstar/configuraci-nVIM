@@ -143,16 +143,15 @@ let g:python_highlight_all = 1
 "set backspace=indent,eol,start
 "--Cierre automático de símbolos--
 "---paréntesis---
-:inoremap ( ()<Esc>i
+":inoremap ( ()<Esc>i
 "---llaves---
-:inoremap { {}<Esc>i
+":inoremap { {}<Esc>i
 "---corchetes---
-:inoremap [ []<Esc>i
+":inoremap [ []<Esc>i
 "---citaciones---
-:inoremap " ""<Esc>i
+":INoremap " ""<Esc>i
 "---citaciones---
-:inoremap ' ''<Esc>i
-"----removing arrow keys----
+":inoremap ' ''<Esc>i
 
 "----------------VundleVim------------------------------"
 set nocompatible
@@ -163,16 +162,17 @@ call vundle#begin()
 
 "El manejador de parquetes"
 Plugin 'VundleVim/Vundle.vim'
+"El mejor tema de colores de la historia"
+Plugin 'morhetz/gruvbox'
 "Typescrip syntaxis"
 Plugin 'leafgarland/typescript-vim'
 "autocompletador de VIM"
 Plugin 'Valloric/YouCompleteMe'
-"El mejor tema de colores de la historia"
-Plugin 'morhetz/gruvbox'
+"Plugin 'nanotech/jellybeans'
 "analizadores de código"
 Plugin 'dense-analysis/ale'
 "powerline like bar"
-"Plugin 'itchyny/lightline.vim'
+Plugin 'itchyny/lightline.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -206,7 +206,7 @@ autocmd CompleteDone * pclose
 "color peachpuff
 "color pablo
 "highlight Comment ctermfg=yellow
-set bg=light
+set bg=dark
 colorscheme gruvbox
 "let g:gruvbox_contrast_dark = 'hard'
 "let g:gruvbox_contrast_light ='hard'
@@ -254,8 +254,8 @@ set statusline+=%=
 set statusline+=\ %{LinterStatus()}
 
 "PowerLine configuration
-"set laststatus=2
-"set noshowmode
-"let g:lightline = {
-"      \ 'colorscheme': 'wombat',
-"      \ }
+set laststatus=2
+set noshowmode
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ }
