@@ -1,33 +1,49 @@
 "-------VIM PLUG--------
 source $HOME/.config/nvim/vim-plug/plugins.vim
 
-"----------------CONFIGURACION UNIVERSAL EN VIM-------------------"
+"------------------- teclas modificadas ----------------------
+"----backspace----
 "leader key ----> \
 "es más fácil precionar "," que "\"
 let mapleader = ","
-"Tildez 
+"set backspace=indent,eol,start
+"--Cierre automático de símbolos--
+"---paréntesis---
+":inoremap ( ()<Esc>i
+"---llaves---
+":inoremap { {}<Esc>i
+"---corchetes---
+":inoremap [ []<Esc>i
+"---citaciones---
+":inoremap " ""<Esc>i
+"---citaciones---
+":inoremap ' ''<Esc>i
+
+"----------------CONFIGURACION UNIVERSAL EN VIM-------------------
+
+" Tildez 
 set encoding=utf-8
 set fileencoding=utf-8
 
-"Haciendo que Vim no busque ser compatible con Vi
+" Haciendo que Vim no busque ser compatible con Vi
 set nocompatible             
 filetype off
 
-"Corte de linea
-"La línea se corta y no continua en el documento
+" Corte de linea
+" La línea se corta y no continua en el documento
 set wrap linebreak nolist 
-"la línea no se corta en el documento
-"set nowrap
+" la línea no se corta en el documento
+" set nowrap
 
 " enable syntax highlighting
 syntax enable
 syntax on
 
-"Show line numbers
-"set number "Este saca el numero total
-set relativenumber "Este saca el numero relativo
+" Show line numbers
+" set number "Este saca el numero total
+set relativenumber " Este saca el numero relativo
 
-"Set tab and autoindent
+" Set tab and autoindent
 set expandtab
 set shiftwidth=4
 set tabstop=4 softtabstop=4
@@ -35,36 +51,36 @@ set smarttab
 set autoindent
 set smartindent
 
-"background siempre oscuro, sin importar el tema"
-"set bg=dark
+" background siempre oscuro, sin importar el tema"
+" set bg=dark
 
-"Búsqueda inteligente"
+" Búsqueda inteligente"
 set incsearch
 
-"marcar las búsquedas"
+" marcar las búsquedas"
 set hlsearch
 
-"---------------Búsqueda de Archivos------------------
+"--------------- búsqueda de archivos ------------------
 
-"También da completador de archivos cuando undo la tecla de tabulador
+" También da completador de archivos cuando undo la tecla de tabulador
 set path+=**
 
-"Mostrar todos los archivos que corresponden con la búsqueda cuando undo tabulador (completar)
+" Mostrar todos los archivos que corresponden con la búsqueda cuando undo tabulador (completar)
 set wildmenu
 
 "------------------------------------------------------------------
 
-"--------------Vim netrw (Nerd tree no plugin)----------------------"
+"-------------- Vim netrw (Nerd tree no plugin) ----------------------"
 " Tweaks for browsing
 let g:netrw_banner=0        " disable annoying banner
 let g:netrw_browse_split=4  " open files in the previous window
 
-"we can use the followin commands to change behaviour
-"=0 using the same window
-"=1 horizontal split the window
-"=2 Vertical split the window
-"=3 Open in a new tab
-"=4 Open in a previous window
+" we can use the followin commands to change behaviour
+" =0 using the same window
+" =1 horizontal split the window
+" =2 Vertical split the window
+" =3 Open in a new tab
+" =4 Open in a previous window
 
 let g:netrw_winsize=20      " set the width of the director explorer
 let g:netrw_altv=1          " open splits to the right
@@ -97,70 +113,56 @@ map <silent> <C-E> :call ToggleVExplorer()<CR>
 " - :edit <nombre del folder>
 " - <CR>/v/t to open in an h-split/v-split/tab
 " - check |netrw-browse-maps| for more mappings
-"abre los archivos en un panel lateral con v"
-"abre los archivos en una nueva pestaña con t
+" abre los archivos en un panel lateral con v"
+" abre los archivos en una nueva pestaña con t
 
-"-----------------------COMMENTING------------------------"
+"----------------------- commenting ------------------------"
 
 " Method 1
-"vnoremap <silent> # :s/^/#<space>/<cr>:noh<cr>
-"vnoremap <silent> -# :s/^#<space>//<cr>:noh<cr>
+vnoremap <silent> # :s/^/#<space>/<cr>:noh<cr>
+vnoremap <silent> -# :s/^#<space>//<cr>:noh<cr>
 
 " Method 2
-"how to commet in VIM"
-"Step 1: Go to the the first column of the first line you want to comment."
-"Step 2: Press: Ctrl+v and select the lines you want to comment:"
-"Step 3: Shift-I#space (Enter Insert-at-left mode, type chars to insert. The selection will disappear, but all lines within it will be modified after Step 4.)"
-"Step 4: Esc"
+" how to commet in VIM"
+" Step 1: Go to the the first column of the first line you want to comment."
+" Step 2: Press: Ctrl+v and select the lines you want to comment:"
+" Step 3: Shift-I#space (Enter Insert-at-left mode, type chars to insert. The selection will disappear, but all lines within it will be modified after Step 4.)"
+" Step 4: Esc"
 
-"--------------------------SWAPFILE-------------------------
+"-------------------------- swapfile -------------------------
 
-"Haciendo que los historiales de comandos se encuentren en un sólo lugar
-"set backupdir=~/.vim/backup//
-"set directory=~/.vim/swap//
-"set undodir=~/.vim/undo//
-"No swap files
+" Haciendo que los historiales de comandos se encuentren en un sólo lugar
+" set backupdir=~/.vim/backup//
+" set directory=~/.vim/swap//
+" set undodir=~/.vim/undo//
+" No swap files
 set noswapfile
 "-----------------------------------------------------------
 
-"------Configuraciones Propias para Ciertos Archivos------------
-" No está funcionando, vamos a ver que se tiene que hacer para que todo de
-"------Markdown----------
+"------------------------ functions --------------------------
+"--- snippeds -----
+nnoremap <leader>htmlbase :-1read $HOME/dot_files/snippets/base.html<CR>
+nnoremap <leader>htmlblock :-1read $HOME/dot_files/snippets/content_block.html<CR>
 
-"Para que los diferentes formatos queden como markdown
+"------ Configuraciones Propias para Ciertos Archivos ------------
+
+"------ Markdown ----------
+
+" Para que los diferentes formatos queden como markdown
 au BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn, *E.md setf markdown
 
-"Solo para Markdown
+" Solo para Markdown
 autocmd Filetype markdown set syntax=markdown nonumber
-"colorcolumn=0
+" colorcolumn=0
 
-"-------Python----------
+"------- Python ----------
 
-"Enable all Python syntax highlighting features
+" Enable all Python syntax highlighting features
 let python_highlight_all = 1
 let g:python_highlight_all = 1
 
 "-------Spell Checking-----------
-"set spell spelllang=es,en
-
-"-------Functions----------
-"making a directory
-nnoremap <leader>mkdir :! mkdir 
-
-"----------------Teclas Modificadas--------------------
-"----backspace----
-"set backspace=indent,eol,start
-"--Cierre automático de símbolos--
-"---paréntesis---
-":inoremap ( ()<Esc>i
-"---llaves---
-":inoremap { {}<Esc>i
-"---corchetes---
-":inoremap [ []<Esc>i
-"---citaciones---
-":INoremap " ""<Esc>i
-"---citaciones---
-":inoremap ' ''<Esc>i
+" set spell spelllang=es,en
 
 "----------------Vim Plug------------------------------"
 
@@ -171,7 +173,11 @@ Plug 'morhetz/gruvbox'
 " multilenguaje, mejorador de subrayador
 Plug 'sheerun/vim-polyglot'
 " autocompletador de VIM"
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
+" autocompletador COC
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" jedi vim para el completador COC
+Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build' }
 " analizadores de código"
 Plug 'dense-analysis/ale'
 " powerline like bar"
@@ -194,45 +200,38 @@ filetype plugin indent on
 "
 " Put your non-Plugin stuff after this line""""""""
 
-"YCM virtual enviroment"
-let current_python = substitute(system('which python'), '\n', '', '')
-let g:ycm_python_binary_path = current_python
+" COC Jedi
+" Autocomplete in tab
 
-" If you prefer the Omni-Completion tip window to close when a selection is
-" made, these lines close it on movement in insert mode or when leaving
-" insert mode
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-autocmd CompleteDone * pclose
 
-"Temas"
-"color peachpuff
-"color pablo
-"highlight Comment ctermfg=yellow
+" Temas"
+" color peachpuff
+" color pablo
+" highlight Comment ctermfg=yellow
 set bg=dark
 colorscheme gruvbox
 
-"Lynter de python para ver que problemas hay en el código"
+" Lynter de python para ver que problemas hay en el código"
 let g:ale_linters = {
       \   'python': ['flake8', 'pylint-django'],
       \}
 
-"let g:ale_linters = {
-"      \   'python': ['flake8', 'pylint'],
-"      \   'ruby': ['standardrb', 'rubocop'],
-"      \   'javascript': ['eslint'],
-"      \}
+" let g:ale_linters = {
+"       \   'python': ['flake8', 'pylint'],
+"       \   'ruby': ['standardrb', 'rubocop'],
+"       \   'javascript': ['eslint'],
+"       \}
 
-"YAPF de Google para arreglar el cógido"
+" YAPF de Google para arreglar el cógido"
 let g:ale_fixers = {
       \    'python': ['yapf'],
       \}
 
-"Se arregla el código y se guarda"
+" Se arregla el código y se guarda"
 nmap <F10> :ALEFix<CR>
 let g:ale_fix_on_save = 1
 
-"Dice el estatus del código al finalizar el programa"
+" Dice el estatus del código al finalizar el programa"
 function! LinterStatus() abort
   let l:counts = ale#statusline#Count(bufnr(''))
 
