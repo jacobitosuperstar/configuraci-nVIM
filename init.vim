@@ -1,23 +1,22 @@
-"-------VIM PLUG--------
-source $HOME/.config/nvim/vim-plug/plugins.vim
-
 "------------------- teclas modificadas ----------------------
 "----backspace----
-"leader key ----> \
-"es más fácil precionar "," que "\"
+" leader key ----> \
+" es más fácil precionar "," que "\"
 let mapleader = ","
-"set backspace=indent,eol,start
-"--Cierre automático de símbolos--
-"---paréntesis---
-":inoremap ( ()<Esc>i
-"---llaves---
-":inoremap { {}<Esc>i
-"---corchetes---
-":inoremap [ []<Esc>i
-"---citaciones---
-":inoremap " ""<Esc>i
-"---citaciones---
-":inoremap ' ''<Esc>i
+" set backspace=indent,eol,start
+" --Cierre automático de símbolos--
+" ---paréntesis---
+" :inoremap ( ()<Esc>i
+" ---llaves---
+" :inoremap { {}<Esc>i
+" ---corchetes---
+" :inoremap [ []<Esc>i
+" ---citaciones---
+" :inoremap " ""<Esc>i
+" ---citaciones---
+" :inoremap ' ''<Esc>i
+" case insensitive search
+set ignorecase
 
 "----------------CONFIGURACION UNIVERSAL EN VIM-------------------
 
@@ -244,3 +243,4 @@ function! LinterStatus() abort
         \   all_errors
         \)
 endfunction
+
