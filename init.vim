@@ -1,70 +1,65 @@
+"-------VIM PLUG--------
+source $HOME/.config/nvim/vim-plug/plugins.vim
+
 "------------------- teclas modificadas ----------------------
 "----backspace----
-" leader key ----> \
-" es más fácil precionar "," que "\"
+"set backspace=indent,eol,start
+"leader key ----> \
+"es más fácil precionar "," que "\"
 let mapleader = ","
-" set backspace=indent,eol,start
-" --Cierre automático de símbolos--
-" ---paréntesis---
-" :inoremap ( ()<Esc>i
-" ---llaves---
-" :inoremap { {}<Esc>i
-" ---corchetes---
-" :inoremap [ []<Esc>i
-" ---citaciones---
-" :inoremap " ""<Esc>i
-" ---citaciones---
-" :inoremap ' ''<Esc>i
-" case insensitive search
-set ignorecase
+"--Cierre automático de símbolos--
+"---paréntesis---
+":inoremap ( ()<Esc>i
+"---llaves---
+":inoremap { {}<Esc>i
+"---corchetes---
+":inoremap [ []<Esc>i
+"---citaciones---
+":inoremap " ""<Esc>i
+"---citaciones---
+":inoremap ' ''<Esc>i
+" Remaping escape key
+" inoremap jk <Esc>
 
 "----------------CONFIGURACION UNIVERSAL EN VIM-------------------
 
-" Tildez 
+" Tildez
 set encoding=utf-8
 set fileencoding=utf-8
 
 " Haciendo que Vim no busque ser compatible con Vi
-set nocompatible             
-filetype off
+set nocompatible
+filetype on
 
 " Corte de linea
 " La línea se corta y no continua en el documento
-set wrap linebreak nolist 
+"set wrap linebreak nolist
 " la línea no se corta en el documento
-" set nowrap
+set nowrap
 
 " enable syntax highlighting
 syntax enable
 syntax on
-
-" Show line numbers
-" set number "Este saca el numero total
-set relativenumber " Este saca el numero relativo
-
-" Set tab and autoindent
-set expandtab
-set shiftwidth=4
-set tabstop=4 softtabstop=4
-set smarttab
-set autoindent
-set smartindent
-
-" background siempre oscuro, sin importar el tema"
-" set bg=dark
 
 " Búsqueda inteligente"
 set incsearch
 
 " marcar las búsquedas"
 set hlsearch
+"No dejar activas las búsquedas
+"set nohlsearch
+
+" la pantalla se baja 20 líneas antes de que el marcador llegue al final
+" así es más fácil mantener el cursor en la mitad de la pantalla
+set scrolloff=20
 
 "--------------- búsqueda de archivos ------------------
 
 " También da completador de archivos cuando undo la tecla de tabulador
 set path+=**
 
-" Mostrar todos los archivos que corresponden con la búsqueda cuando undo tabulador (completar)
+" Mostrar todos los archivos que corresponden con la búsqueda cuando undo
+" tabulador (completar)
 set wildmenu
 
 "------------------------------------------------------------------
@@ -118,14 +113,12 @@ map <silent> <C-E> :call ToggleVExplorer()<CR>
 "----------------------- commenting ------------------------"
 
 " Method 1
-vnoremap <silent> # :s/^/#<space>/<cr>:noh<cr>
-vnoremap <silent> -# :s/^#<space>//<cr>:noh<cr>
-
-" Method 2
 " how to commet in VIM"
 " Step 1: Go to the the first column of the first line you want to comment."
 " Step 2: Press: Ctrl+v and select the lines you want to comment:"
-" Step 3: Shift-I#space (Enter Insert-at-left mode, type chars to insert. The selection will disappear, but all lines within it will be modified after Step 4.)"
+" Step 3: Shift-I#space (Enter Insert-at-left mode, type chars to insert.
+"         The selection will disappear, but all lines within it will be
+"         modified after Step 4.)"
 " Step 4: Esc"
 
 "-------------------------- swapfile -------------------------
@@ -143,30 +136,57 @@ set noswapfile
 nnoremap <leader>htmlbase :-1read $HOME/dot_files/snippets/base.html<CR>
 nnoremap <leader>htmlblock :-1read $HOME/dot_files/snippets/content_block.html<CR>
 
+"--- delete all whitescape------
+fun! TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+
+augroup JACOBO
+    autocmd!
+    autocmd BufWritePre * :call TrimWhitespace()
+augroup END
+
 "------ Configuraciones Propias para Ciertos Archivos ------------
 
 "------ Markdown ----------
 
 " Para que los diferentes formatos queden como markdown
-au BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn, *E.md setf markdown
-
-" Solo para Markdown
-autocmd Filetype markdown set syntax=markdown nonumber
-" colorcolumn=0
+au BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn, *.md
+    \ set nonumber
+    \ set spelllang=es
+    \ colorcolumn=0
+    "-------Spell Checking-----------
+    \ set spell spelllang=es,en
 
 "------- Python ----------
 
-" Enable all Python syntax highlighting features
-let python_highlight_all = 1
-let g:python_highlight_all = 1
-
-"-------Spell Checking-----------
-" set spell spelllang=es,en
+au BufNewFile,BufRead *.py
+    " Enable all Python syntax highlighting features
+    \ let python_highlight_all = 1
+    \ let g:python_highlight_all = 1
+    " Show line numbers
+    " set number "Este saca el numero total
+    \ set nu
+    \ set relativenumber " Este saca el numero relativo
+    " Set tab and autoindent
+    \ set expandtab
+    \ set shiftwidth=4
+    \ set tabstop=4 softtabstop=4
+    \ set smarttab
+    \ set autoindent
+    \ set smartindent
+    " agrega una columna adicional para la indentación o colocar errores,
+    " adicionalmente hago una línea en la línea de caracteres 80, para estár más
+    " en nivel con PEP8
+    \ set colorcolumn=80
+    \ set signcolumn=yes
 
 "----------------Vim Plug------------------------------"
 
 call plug#begin('~/.vim/plugged')
- 
+
 " El mejor tema de colores de la historia"
 Plug 'morhetz/gruvbox'
 " multilenguaje, mejorador de subrayador
@@ -177,8 +197,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " jedi vim para el completador COC
 Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build' }
-" analizadores de código"
-Plug 'dense-analysis/ale'
 " powerline like bar"
 Plug 'itchyny/lightline.vim'
 " Git
@@ -186,7 +204,7 @@ Plug 'tpope/vim-fugitive'
 " Git required
 Plug 'vim-airline/vim-airline'
 
- 
+
 " Initialize plugin system
 call plug#end()
 filetype plugin indent on
@@ -199,10 +217,6 @@ filetype plugin indent on
 "
 " Put your non-Plugin stuff after this line""""""""
 
-" COC Jedi
-" Autocomplete in tab
-
-
 " Temas"
 " color peachpuff
 " color pablo
@@ -210,37 +224,17 @@ filetype plugin indent on
 set bg=dark
 colorscheme gruvbox
 
-" Lynter de python para ver que problemas hay en el código"
-let g:ale_linters = {
-      \   'python': ['flake8', 'pylint-django'],
-      \}
+" COC tabautocomplete
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
 
-" let g:ale_linters = {
-"       \   'python': ['flake8', 'pylint'],
-"       \   'ruby': ['standardrb', 'rubocop'],
-"       \   'javascript': ['eslint'],
-"       \}
-
-" YAPF de Google para arreglar el cógido"
-let g:ale_fixers = {
-      \    'python': ['yapf'],
-      \}
-
-" Se arregla el código y se guarda"
-nmap <F10> :ALEFix<CR>
-let g:ale_fix_on_save = 1
-
-" Dice el estatus del código al finalizar el programa"
-function! LinterStatus() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-
-  return l:counts.total == 0 ? '✨ all good ✨' : printf(
-        \   '😞 %dW %dE',
-        \   all_non_errors,
-        \   all_errors
-        \)
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+let g:coc_snippet_next = '<tab>'
 

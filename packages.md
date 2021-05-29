@@ -1,5 +1,5 @@
-
 # Estos son los paquetes iniciales de Pythona
+
 pip
 setuptools
 wheel
