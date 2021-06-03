@@ -1,6 +1,3 @@
-"-------VIM PLUG--------
-" source $HOME/.config/nvim/vim-plug/plugins.vim
-
 "------------------- teclas modificadas ----------------------
 "----backspace----
 "set backspace=indent,eol,start
@@ -85,27 +82,39 @@ vnoremap <Left> <Nop>
 vnoremap <Right> <Nop>
 vnoremap <Up> <Nop>
 
-"------- Python ----------
-
-" Enable all Python syntax highlighting features
-let python_highlight_all = 1
-let g:python_highlight_all = 1
-" Show line numbers
-" set number "Este saca el numero total
-set nu
-set relativenumber " Este saca el numero relativo
-" Set tab and autoindent
-set expandtab
-set shiftwidth=4
-set tabstop=4 softtabstop=4
-set smarttab
-set autoindent
-set smartindent
+"--------DEVELOPER--------
 " agrega una columna adicional para la indentación o colocar errores,
 " adicionalmente hago una línea en la línea de caracteres 80, para estár más
 " en nivel con PEP8
 set colorcolumn=80
 "set signcolumn=yes
+set nu
+set relativenumber " Este saca el numero relativo
+
+"------- Python ----------
+
+" Enable all Python syntax highlighting features
+" let python_highlight_all = 1
+" let g:python_highlight_all = 1
+" Show line numbers
+" set number "Este saca el numero total
+
+au BufNewFile,BufRead *.py
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set shiftwidth=4
+    \ set expandtab
+    \ set autoindent
+    \ set fileformat=unix
+    \ set smartindent
+    \ set smarttab
+"    \ set textwidth=79
+
+"---------FullStack--------------
+au BufNewFile,BufRead *.js, *.html, *.css
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
 
 "--------------- búsqueda de archivos ------------------
 
@@ -300,5 +309,4 @@ filetype plugin indent on
 " :PlugClean      -Confirms removal of unused plugins
 "
 " Put your non-Plugin stuff after this line""""""""
-
 
