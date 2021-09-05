@@ -5,13 +5,57 @@
 #############################################
 
 export LC_ALL=en_US.UTF-8
-export PATH="/usr/local/opt/icu4c/bin:$PATH"
-export PATH="/usr/local/opt/icu4c/sbin:$PATH"
-export PATH="/usr/local/opt/ruby/bin:$PATH"
-export PATH="/usr/local/opt/sqlite/bin:$PATH"
-eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
-export PATH=/usr/local/bin:/usr/local/sbin:~/bin:$PATH
+export PATH="/usr/local/bin:/usr/local/sbin:~/bin:$PATH"
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+
+#############################################
+#          Lazy person neoVIm               #
+#############################################
+
+# alias v="vim"
+# alias vim="vim"
+# GIT_EDITOR="vim"
+
+alias v="nvim"
+alias vim="nvim"
+GIT_EDITOR="nvim"
+
+#############################################
+# remover el paquete con sus dependencias   #
+#############################################
+
+# brew tap beeftornado/rmtree
+# brew rmtree <package>
+
+#############################################
+# El ambiente virtual en mi carpeta base de #
+# proyecto                                  #
+#############################################
+
+export PIPENV_VENV_IN_PROJECT=1
+
+#############################################
+# cambiando la frecuencia de tiempo de time #
+# machine                                   #
+#############################################
+
+# el último valor de la línea es el tiempo en segundos para hacer el backup
+
+# default
+# sudo defaults write /System/Library/LaunchDaemons/com.apple.backupd-auto StartInterval -int 3600
+
+# modificado
+# sudo defaults write /System/Library/LaunchDaemons/com.apple.backupd-auto StartInterval -int 18000
+
+############################
+# GoogleCloud Autocomplete #
+############################
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/jacobo/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/jacobo/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/jacobo/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/jacobo/google-cloud-sdk/completion.zsh.inc'; fi
 
 #############################################
 # Personalizando el terminal para que tenga #
@@ -607,6 +651,24 @@ setopt PROMPT_SUBST
 async_init
 # }}}
 
+function _virtualenv_prompt_info {
+    if [[ -n "$(whence virtualenv_prompt_info)" ]]; then
+        if [ -n "$(whence pyenv_prompt_info)" ]; then
+            if [ "$1" = "inline" ]; then
+                ZSH_THEME_VIRTUAL_ENV_PROMPT_PREFIX=%{$fg[blue]%}"::%{$fg[red]%}"
+                ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX=""
+                virtualenv_prompt_info
+            fi
+            local _default_version="$(cat $PYENV_ROOT/version 2> /dev/null)"
+            [ "$(pyenv_prompt_info)" = "${_default_version}" ] && virtualenv_prompt_info
+        else
+            virtualenv_prompt_info
+        fi
+    fi
+}
+PROMPT='%(?:%F{green}:%F{red})$_virtualenv_prompt_info
+╰➤ '
+
 # Options {{{
 # Set to 1 to show the date
 DRACULA_DISPLAY_TIME=1
@@ -646,7 +708,7 @@ DRACULA_GIT_NOLOCK=${DRACULA_GIT_NOLOCK:-$(dracula_test_git_optional_lock)}
 # }}}
 
 # Status segment {{{
-PROMPT='%(?:%F{green}:%F{red})${DRACULA_ARROW_ICON}'
+PROMPT+='%(?:%F{green}:%F{red})${DRACULA_ARROW_ICON}'
 # }}}
 
 # Time segment {{{
@@ -747,3 +809,68 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%f%b"
 
 # Ensure effects are reset
 PROMPT+='%f%b'
+
+# function _virtualenv_prompt_info {
+#     if [[ -n "$(whence virtualenv_prompt_info)" ]]; then
+#         if [ -n "$(whence pyenv_prompt_info)" ]; then
+#             if [ "$1" = "inline" ]; then
+#                 ZSH_THEME_VIRTUAL_ENV_PROMPT_PREFIX=%{$fg[blue]%}"::%{$fg[red]%}"
+#                 ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX=""
+#                 virtualenv_prompt_info
+#             fi
+#             local _default_version="$(cat $PYENV_ROOT/version 2> /dev/null)"
+#             [ "$(pyenv_prompt_info)" = "${_default_version}" ] && virtualenv_prompt_info
+#         else
+#             virtualenv_prompt_info
+#         fi
+#     fi
+# }
+#
+# function _git_prompt_info {
+#     [[ -n $(whence git_prompt_info) ]] && git_prompt_info
+# }
+#
+# function _hg_prompt_info {
+#     [[ -n $(whence hg_prompt_info) ]] && hg_prompt_info
+# }
+#
+# function _pyenv_prompt_info {
+#     if [ -n "$(whence pyenv_prompt_info)" ]; then
+#         local _prompt_info="$(pyenv_prompt_info)"
+#         local _default_version="$(cat $PYENV_ROOT/version 2> /dev/null)"
+#         if [ -n "$_prompt_info" ] && [ "$_prompt_info" != "${_default_version:-system}" ]; then
+#             echo "${ZSH_THEME_PYENV_PROMPT_PREFIX}$(pyenv_prompt_info)$(_virtualenv_prompt_info inline)${ZSH_THEME_PYENV_PROMPT_SUFFIX}"
+#         fi
+#     fi
+# }
+#
+# function _docker_prompt_info {
+#     DOCKER_PROMPT_INFO="${DOCKER_PROMPT_INFO:-${DOCKER_MACHINE_NAME}}"
+#     DOCKER_PROMPT_INFO="${DOCKER_PROMPT_INFO:-${DOCKER_HOST/tcp:\/\//}}"
+#     if [ -n "${DOCKER_PROMPT_INFO}" ]; then
+#         echo "${ZSH_THEME_DOCKER_PROMPT_PREFIX}${DOCKER_PROMPT_INFO}${ZSH_THEME_DOCKER_PROMPT_SUFFIX}"
+#     fi
+# }
+#
+# PROMPT='╭ %{$fg_bold[red]%}➜ %{$fg_bold[green]%}%n@%M:%{$fg[cyan]%}%~ %{$fg_bold[blue]%}$(_virtualenv_prompt_info)$(_pyenv_prompt_info)$(_docker_prompt_info)$(_git_prompt_info)$(_hg_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}
+# ╰ ➤ '
+#
+# ZSH_THEME_HG_PROMPT_PREFIX="hg:‹%{$fg[red]%}"
+# ZSH_THEME_HG_PROMPT_SUFFIX="%{$reset_color%}"
+# ZSH_THEME_HG_PROMPT_DIRTY="%{$fg[blue]%}› %{$fg[yellow]%}✗%{$reset_color%}"
+# ZSH_THEME_HG_PROMPT_CLEAN="%{$fg[blue]%}›"
+#
+# ZSH_THEME_GIT_PROMPT_PREFIX="git:‹%{$fg[red]%}"
+# ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
+# ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}› %{$fg[yellow]%}✗%{$reset_color%}"
+# ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%}›"
+#
+# ZSH_THEME_VIRTUAL_ENV_PROMPT_PREFIX="venv:‹%{$fg[red]%}"
+# ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX="%{$fg[blue]%}› "
+#
+# ZSH_THEME_PYENV_PROMPT_PREFIX="py:‹%{$fg[red]%}"
+# ZSH_THEME_PYENV_PROMPT_SUFFIX="%{$fg[blue]%}› "
+#
+# ZSH_THEME_DOCKER_PROMPT_PREFIX="docker:‹%{$fg[red]%}"
+# ZSH_THEME_DOCKER_PROMPT_SUFFIX="%{$fg[blue]%}› "
+
