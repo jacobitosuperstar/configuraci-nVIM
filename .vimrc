@@ -223,9 +223,11 @@ Plug 'tpope/vim-fugitive'
 " Git required
 Plug 'vim-airline/vim-airline'
 " Vim simple complete
-Plug 'maxboisvert/vim-simple-complete'
+" Plug 'maxboisvert/vim-simple-complete'
 " Best theme of all time
 Plug 'morhetz/gruvbox'
+" Vim YOUCOMPLETEME
+Plug 'ycm-core/YouCompleteMe'
 
 " Initialize plugin system
 call plug#end()
@@ -271,3 +273,12 @@ let g:airline#extensions#tabline#formatter = 'default'
 " add tags and opened files in the simplecomplete
 " set complete-=t
 " set complete-=i
+
+"YOUCOMPLETEME
+let g:ycm_python_interpreter_path = ''
+let g:ycm_python_sys_path = []
+let g:ycm_extra_conf_vim_data = [
+  \  'g:ycm_python_interpreter_path',
+  \  'g:ycm_python_sys_path'
+  \]
+let g:ycm_global_ycm_extra_conf = '~/YCM_global_extra_conf.py'
