@@ -160,7 +160,7 @@ db.<nombre de la colección>.find(
 ```
 
 `$sort`
-: 
+:
 
 `$text`
 :
