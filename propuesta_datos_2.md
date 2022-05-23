@@ -1,3 +1,23 @@
+# DESARROLLADOR
+
+## CAPACIDADES
+
+Desarrollador backend especializado en Python y Go, con los siguientes conocimientos:
+
+* Python/Django, Python/Flask.
+* Python/Pandas.
+* Sistemas distribuídos (MicroServicios).
+* Servicios de Nube (Google Cloud, Azure, AWS).
+* Websockets.
+* Docker.
+* RabbitMQ.
+* JavaScript.
+* jQuery.
+* Bases de datos relacionales y no relacionales.
+
+
+# INTELIGENCIA DE NEGOCIOS
+
 # SERVICE BLUE PRINT
 
 | Evidencia Física | Acciones del Cliente | Interacción Inicial con el cliente | Procesos Internos con la información | Procesos de soporte |
@@ -6,7 +26,7 @@
 | Descripción del producto | Análisis de carácterísticas del servicio | Revisión de las necesidades del cliente y retroalimentación con el mismo para dar respuesta a la necesidad | Planteamiento interno de la solución. Planteamiento inicial de la solución |
 | Producto | Manejo de la Plataforma | Retroalimentación | Planteamientos sobre expansión de funcionalidades, aplicación de nuevos modelos, retroalimentación interna del proceso  | Soporte técnico |
 
-# PRODUCTOS A OFRECER
+# ANÁLISIS DE DATOS
 
 ## CRM => Customer Relationship Management system
 
